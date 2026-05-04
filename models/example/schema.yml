@@ -1,21 +1,58 @@
 
 version: 2
 
-models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+sources:
+  - name: airbyte
+    database: DEMO_DB
+    schema: AIRBYTE_SCHEMA
+    tables:
+      - name: SALES_DATA
 
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+models:
+  - name: stg_sales
+    description: "Cleaned sales data from Airbyte source"
+    columns:
+      - name: product_id
+        description: "Unique product identifier"
+        tests:
+          - not_null
+
+      - name: store_id
+        description: "Store identifier"
+        tests:
+          - not_null
+
+      - name: quantity
+        description: "Number of items sold"
+        tests:
+          - not_null
+
+  - name: dim_products
+    description: "Product dimension table"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_store
+    description: "Store dimension table"
+    columns:
+      - name: store_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_sales
+    description: "Fact table for sales transactions"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+
+      - name: store_id
+        tests:
+          - not_null
+
+      - name: total_amount
+        description: "Revenue per row"
