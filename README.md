@@ -1,15 +1,47 @@
-Welcome to your new dbt project!
+# dbt Analytics Project
 
-### Using the starter project
+## 📊 Overview
 
-Try running the following commands:
-- dbt run
-- dbt test
+This project transforms raw sales data into clean, analytics-ready tables using dbt.
 
+## 🏗️ Architecture
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [dbt community](https://getdbt.com/community) to learn from other analytics engineers
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+The project follows a layered approach:
+
+* **Staging (`stg_`)**: Cleans raw data from Airbyte
+* **Dimensions (`dim_`)**: Descriptive tables (products, stores, categories)
+* **Facts (`fact_`)**: Business metrics (sales revenue)
+
+## 🔄 Data Flow
+
+Airbyte → Snowflake → dbt → Analytics Tables
+
+## 📁 Models
+
+* `stg_sales`: Cleans raw sales data
+* `dim_products`: Product details
+* `dim_store`: Store information
+* `dim_category`: Product categories
+* `fact_sales`: Sales metrics (revenue)
+
+## 🧪 Tests
+
+Ensures data quality using:
+
+* `not_null`
+* `unique`
+
+## 🚀 Tools Used
+
+* dbt Cloud
+* Snowflake
+* Airbyte
+* GitHub
+
+## 📈 Key Metric
+
+**Total Revenue = quantity × unit_price**
+
+## 👤 Author
+
+Authurn Mwambazi
